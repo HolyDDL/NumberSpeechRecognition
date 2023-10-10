@@ -1,4 +1,6 @@
-# Data Collection
+# Audio Digital Signal Processing
+
+## Data Collection
 
 .wav文件命名格式 NUM_TIMES.wav, NUM表示录音数字, TIMES表示次数
 
@@ -8,3 +10,13 @@
 - 要结束. 输入q
 - 要更改录音时长改动`record_audio(f'{number}_{global_times}.wav')`为`record_audio(f'{number}_{global_times}.wav'), record_second=NUMBER`将录音NUMBERs.
 - 采样率RATE, 采样深度FORMAT, 每个缓冲采样数量CHUNK进入`record_audio`体内修改
+
+## ExtractFeature
+
+需要读取./DataSet/下的文件.
+ExtractFeature.py 下有数据处理的类DataProcessing()
+
+- 提取特征时, 先将`DataProcessing(FilePath:str, segmet_time = 30e-3, cover_time = 10e-3, amp_threshold=5, cr_threshold=0.05)`实例化.
+- 再调用`DataProcessing.FeatureDetect(plot=False, plot3d=False)`函数提取特征.
+- 函数将会返回三个特征, `amps, crs, seg_fre`, 每个返回的特征维度为:(N,), 即帧数.
+- 相同样本的三个特征的维数(帧数)是相同的. 但是不同的样本提取出的帧数是不同的.
