@@ -56,7 +56,7 @@ class DataProcessing():
 
     def data_segment(self, data:np.ndarray):
         # signal segment by window
-        window = np.hanning(int(self.segment_time / self.sample_time_gap)) # retangle window
+        window = np.hanning(int(self.segment_time / self.sample_time_gap)) 
         cover = int(self.cover_time / self.sample_time_gap)
         segments = []
         i = 0
@@ -175,6 +175,8 @@ class DataProcessing():
         data = self.read_data()
         segments = self.data_segment(data)
         choosed_segs, minid, maxid = self.segment_choose(segments)
+        if len(choosed_segs) == 0:
+            return [-1], [-1], [-1]
         choosed_data = self.choose_data(data, (minid,maxid))
         _, seg_fre = self.segs_correlate(choosed_segs)
         amps = np.zeros(len(choosed_segs))
@@ -189,6 +191,6 @@ class DataProcessing():
         return amps, crs, seg_fre
 
 if __name__ == '__main__':  
-    wavefile = DataProcessing('DataSet/9_0.wav')
-    wavefile.FeatureDetect(False,True)
+    wavefile = DataProcessing('DataSet/7_8.wav')
+    wavefile.FeatureDetect()
 
