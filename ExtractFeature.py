@@ -38,7 +38,8 @@ class DataProcessing():
         self.sample_time_gap = 1 / framerate
         ori_data = np.frombuffer(str_data,dtype = np.int16)
         # normalize
-        data = ori_data / max(abs(max(ori_data)), abs(min(ori_data)))
+        scale = max(np.abs(max(ori_data), dtype=np.int32), np.abs(min(ori_data), dtype=np.int32))
+        data = ori_data / scale
         return data
 
     def amp_detect(self, data):
@@ -116,10 +117,13 @@ class DataProcessing():
             if self.amp_detect(seg) > self.amp_threshold:
                 seg_core[i] = np.correlate(seg, seg,'full')
                 peak_index = self.AMPD(seg_core[i])
-                diff = np.zeros(len(peak_index)-1)
-                for j in range(len(peak_index)-1):
-                    diff[j] = (peak_index[j+1]-peak_index[j])
-                seg_frequency[i] = 1 / (diff.mean()*self.sample_time_gap)
+                if len(peak_index) <= 1:
+                    seg_frequency[i] = 0
+                else:
+                    diff = np.zeros(len(peak_index)-1)
+                    for j in range(len(peak_index)-1):
+                        diff[j] = (peak_index[j+1]-peak_index[j])
+                    seg_frequency[i] = 1 / (diff.mean()*self.sample_time_gap)
         et = time.time()
         print(f'Segments self-correlating used {et-bt:.4f}s')
         return seg_core, seg_frequency
@@ -173,6 +177,8 @@ class DataProcessing():
                 plot3d: if it is True, function will plot the 3d figure of features of sample. Default=False
         '''
         data = self.read_data()
+        if data is None:
+            return [-1], [-1], [-1]
         segments = self.data_segment(data)
         choosed_segs, minid, maxid = self.segment_choose(segments)
         if len(choosed_segs) == 0:
@@ -191,6 +197,6 @@ class DataProcessing():
         return amps, crs, seg_fre
 
 if __name__ == '__main__':  
-    wavefile = DataProcessing('DataSet/7_8.wav')
-    wavefile.FeatureDetect()
+    wavefile = DataProcessing('MaAudio/2_9.wav')
+    wavefile.FeatureDetect(True,True)
 
