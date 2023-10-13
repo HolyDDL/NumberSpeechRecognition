@@ -55,9 +55,14 @@ class DataProcessing():
                 sum += 1
         return sum / len(data)
 
-    def data_segment(self, data:np.ndarray):
+    def data_segment(self, data:np.ndarray, window_type='hanning'):
         # signal segment by window
-        window = np.hanning(int(self.segment_time / self.sample_time_gap)) 
+        if window_type == 'hanning':
+            window = np.hanning(int(self.segment_time / self.sample_time_gap))
+        elif window_type == 'hamming':
+            window = np.hamming(int(self.segment_time / self.sample_time_gap))
+        else:
+            window = np.ones(int(self.segment_time / self.sample_time_gap))
         cover = int(self.cover_time / self.sample_time_gap)
         segments = []
         i = 0
@@ -170,7 +175,7 @@ class DataProcessing():
         ax.scatter(amps, crs, seg_fre)
         plt.show()
 
-    def FeatureDetect(self, plot=False, plot3d=False):
+    def FeatureDetect(self, plot=False, plot3d=False, window_type = 'hanning'):
         '''
             Arguments:
                 plot: if it is True, function will plot the 2d figure of features of sample. Default=False
@@ -179,7 +184,7 @@ class DataProcessing():
         data = self.read_data()
         if data is None:
             return [-1], [-1], [-1]
-        segments = self.data_segment(data)
+        segments = self.data_segment(data, window_type)
         choosed_segs, minid, maxid = self.segment_choose(segments)
         if len(choosed_segs) == 0:
             return [-1], [-1], [-1]
@@ -197,6 +202,6 @@ class DataProcessing():
         return amps, crs, seg_fre
 
 if __name__ == '__main__':  
-    wavefile = DataProcessing('MaAudio/2_9.wav')
+    wavefile = DataProcessing('DataSet/2_9.wav')
     wavefile.FeatureDetect(True,True)
 

@@ -8,11 +8,12 @@ import numpy as np
 
 class SaveFeature():
 
-    def __init__(self, source_dir, destination_dir) -> None:
+    def __init__(self, source_dir, destination_dir, destination_name='Cluster_Data.csv', window_type='hanning') -> None:
         self.source_dir = source_dir
         self.destination_dir = destination_dir
         self.Original_data_name = 'Original_Data.csv'
-        self.cluster_data_name = 'Cluster_Data.csv'
+        self.cluster_data_name = destination_name
+        self.window_type = window_type
 
     def getfiles(self):
         file_names = os.listdir(self.source_dir)
@@ -28,7 +29,7 @@ class SaveFeature():
             print(f'Extrtacting number={number_times[0]}, times={number_times[1]}')
             number = int(number_times[0])
             wavefile = ExtractFeature.DataProcessing(os.path.join(self.source_dir, name))
-            amps, crs, seg_fres = wavefile.FeatureDetect()
+            amps, crs, seg_fres = wavefile.FeatureDetect(window_type=self.window_type)
             features = np.concatenate((amps, crs, seg_fres,[number]))
             all_files_features.append(features)
         print('done!')
@@ -106,6 +107,6 @@ class SaveFeature():
         self.save_data(self.Original_data_name, self.extract_features())
         
 if __name__ =='__main__':
-    saver = SaveFeature('DataSet','FeatureFiles')
+    saver = SaveFeature('LiAudio','RectangleWindow','Li_DATA.csv','rectangle')
     saver.GetData()
     saver.CulsterData()
