@@ -1,5 +1,5 @@
 # -----------------------------------------
-# @Decription: Collect audio data for digital signal processing
+# @Description: Collect audio data for digital signal processing
 # @Author: Yiwei Ren.
 # @Date: 九月 19, 2023, 星期二 11:43:51
 # @Copyright (c) 2023 Yiwei Ren.. All rights reserved.

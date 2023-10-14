@@ -1,5 +1,5 @@
 # -----------------------------------------
-# @Decription: this file aim to save a file that saved normalized feature data and labels, which can be used in classification
+# @Description: this file aim to save a file that saved normalized feature data and labels, which can be used in classification
 # @Author: Yiwei Ren.
 # @Date: 十月 14, 2023, 星期六 08:40:23
 # @Copyright (c) 2023 Yiwei Ren.. All rights reserved.

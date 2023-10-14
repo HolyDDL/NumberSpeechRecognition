@@ -1,5 +1,5 @@
 # -----------------------------------------
-# @Decription: This file extracts features of voice signals
+# @Description: This file extracts features of voice signals
 # @Author: Yiwei Ren.
 # @Date: 十月 07, 2023, 星期六 20:04:03
 # @Copyright (c) 2023 Yiwei Ren.. All rights reserved.
