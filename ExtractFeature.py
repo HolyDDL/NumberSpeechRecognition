@@ -180,6 +180,7 @@ class DataProcessing():
             Arguments:
                 plot: if it is True, function will plot the 2d figure of features of sample. Default=False
                 plot3d: if it is True, function will plot the 3d figure of features of sample. Default=False
+                window_type: select the function of window. Default='hanning', Optional: 'hamming','hanning','rectangle'
         '''
         data = self.read_data()
         if data is None:

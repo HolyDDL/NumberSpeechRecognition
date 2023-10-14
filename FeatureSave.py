@@ -1,3 +1,10 @@
+# -----------------------------------------
+# @Decription: this file aim to save a file that saved normalized feature data and labels, which can be used in classification
+# @Author: Yiwei Ren.
+# @Date: 十月 14, 2023, 星期六 08:40:23
+# @Copyright (c) 2023 Yiwei Ren.. All rights reserved.
+# -----------------------------------------
+
 import ExtractFeature
 import os
 import csv
@@ -5,10 +12,20 @@ import re
 import tqdm
 import numpy as np
 
-
 class SaveFeature():
+    '''
+        Save a file that includes normalized feature data and labels.
+    '''
 
     def __init__(self, source_dir, destination_dir, destination_name='Cluster_Data.csv', window_type='hanning') -> None:
+        '''
+            Arguments:
+                source_dir: root path of dataset
+                destination_dir: root path of files that saved features and labels
+                destination_dir: name of files that saved feature and labels. Default='Cluster_Data.csv'
+                window_type: the function of window for processing segment audio data. Default='hanning', Optional: 'hanning', 'hamming', 'rectangle'
+
+        '''
         self.source_dir = source_dir
         self.destination_dir = destination_dir
         self.Original_data_name = 'Original_Data.csv'
