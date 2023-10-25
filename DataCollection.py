@@ -1,5 +1,5 @@
 # -----------------------------------------
-# @Description: Collect audio data for digital signal processing
+# @Decription: Collect audio data for digital signal processing
 # @Author: Yiwei Ren.
 # @Date: 九月 19, 2023, 星期二 11:43:51
 # @Copyright (c) 2023 Yiwei Ren.. All rights reserved.
@@ -10,7 +10,7 @@ import pyaudio
 import wave
 from tqdm import tqdm
 
-def record_audio(wave_path, record_second=2):
+def record_audio(wave_path, record_second=2, tqdm_=True):
     '''
         Collecting .wav data
 
@@ -35,9 +35,14 @@ def record_audio(wave_path, record_second=2):
     wf.setsampwidth(p.get_sample_size(FORMAT))
     wf.setframerate(RATE)
     print("* recording")
-    for i in tqdm(range(0, int(RATE / CHUNK * record_second))):
-        data = stream.read(CHUNK)
-        wf.writeframes(data)
+    if tqdm_:
+        for i in tqdm(range(0, int(RATE / CHUNK * record_second))):
+            data = stream.read(CHUNK)
+            wf.writeframes(data)
+    else:
+        for i in range(0, int(RATE / CHUNK * record_second)):
+            data = stream.read(CHUNK)
+            wf.writeframes(data)
     print("* done recording")
     stream.stop_stream()
     stream.close()

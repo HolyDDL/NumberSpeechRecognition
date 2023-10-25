@@ -28,3 +28,18 @@ ExtractFeature.py 下有数据处理的类DataProcessing()
 - 存储时, 先将`SaveFeature(source_dir, destination_dir, destination_name='Cluster_Data.csv', window_type='hanning')`实例化. `source_dir`是原始数据集根目录位置. `destination_dir`是特征提取后特征文件保存的根目录. `destination_name`是特征文件存储的名字. `window_type`是选择分帧的窗函数.
 - 再调用`SaveFeature.GetData()`得到数据集文件.
 - 最后调用`SaveFeature.CulsterData()`进行特征归一化.
+
+## Train
+
+包含有SVM训练的类以及预测方法.
+
+- 使用时, 实例化类`SVM_Classify(dataset_root, dataset_name, model_root, model_name)`设置数据集根目录, 文件名称, 设置保存模型根路径, 文件名称
+- 再调用`SVM_Classify.Train()`即可训练模型.
+- 230组训练数据准确度最高在85%左右.
+
+## Predict
+
+直接调用即可预测当前说话的数字.
+
+- 使用时, 实例化类`Predict(model_root, model_name)`设置svm模型路径和文件名称, 用于载入模型
+- 直接调用实例化类即可.`__call__`方法将会直接拉起预测流程.
