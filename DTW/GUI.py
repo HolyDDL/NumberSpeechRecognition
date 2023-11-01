@@ -97,12 +97,13 @@ def record_audio():
         recognizer = DTW(pattern_root=pattern_path)
         predict_num = recognizer(WAVE_OUTPUT_FILENAME)
         progresslabel.config(text=f'Predicted number is: {predict_num}')
-        del_files('temp')
+        
         def del_files(path):
             for i in os.listdir(path):
                 if os.path.isdir(os.path.join(path,i)):
                     del_files(os.path.join(path,i))
                 os.remove(os.path.join(path,i))
+        del_files('temp')
     else:
         messagebox.showwarning('Warning!', 'Did not Choose patterns!')
 
