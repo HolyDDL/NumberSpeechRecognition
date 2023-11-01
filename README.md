@@ -1,5 +1,11 @@
 # Audio Digital Signal Processing
 
+---
+This project is licensed under WTFPL  
+本项目遵循WTFPL协议  
+**How could life be easier? You just DO WHAT THE FUCK YOU WANT TO.**
+
+
 ## Data Collection
 
 .wav文件命名格式 NUM_TIMES.wav, NUM表示录音数字, TIMES表示次数
