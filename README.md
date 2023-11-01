@@ -5,6 +5,9 @@ This project is licensed under WTFPL
 本项目遵循WTFPL协议  
 **How could life be easier? You just DO WHAT THE FUCK YOU WANT TO.**
 
+## 环境配置
+
+终端输入`pip install -r requirements.txt`安装依赖库
 
 ## Data Collection
 
