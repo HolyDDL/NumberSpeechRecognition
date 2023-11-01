@@ -14,7 +14,7 @@ def record_audio(wave_path, record_second=2, tqdm_=True):
     '''
         Collecting .wav data
 
-        Arrguments:
+        Arguments:
             wave_path: the path to save .wav file
             record_second: every .wav time duration, Default = 2s
     '''

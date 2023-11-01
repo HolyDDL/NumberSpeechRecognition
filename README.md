@@ -43,3 +43,18 @@ ExtractFeature.py 下有数据处理的类DataProcessing()
 
 - 使用时, 实例化类`Predict(model_root, model_name)`设置svm模型路径和文件名称, 用于载入模型
 - 直接调用实例化类即可.`__call__`方法将会直接拉起预测流程.
+
+## DTW/
+
+使用DTW方法进行频域特征提取和预测全流程, 并且使用了GUI.
+
+### DTW/DTW
+
+包含有频域信息提取和DTW方法.
+
+- 使用时, 实例化`DTW(pattern_root, default_pattern = 0)`设置模式所在的根目录
+- 直接调用实例化类`DTW(test_file)`即可. 设置好要被识别的文件后, `__call__`会直接拉起预测流程.
+
+### DTW/GUI
+
+使用GUI进行预测.
