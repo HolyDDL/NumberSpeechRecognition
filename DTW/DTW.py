@@ -26,7 +26,7 @@ class DTW():
     
     def extract_mfcc(self, audio_path):
         y, sr = librosa.load(audio_path) 
-        mfccs = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13)
+        mfccs = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=24)
         return mfccs.T
 
     def dtw_distance(self, template, test):
