@@ -9,6 +9,7 @@
 import librosa
 from scipy.spatial.distance import euclidean
 from fastdtw import fastdtw
+import numpy as np
 
 class DTW():
     '''
@@ -23,10 +24,20 @@ class DTW():
         '''
         self.pattern_root = pattern_root
         self.default_pattern = default_pattern
-    
+        self.fft_size = 512
+        self.hop_length = 256
+        self.coefficient = 0.97
+        self.window = 'boxcar'
+        self.n_mels = 128
+        self.n_mfcc = 24
+
     def extract_mfcc(self, audio_path):
-        y, sr = librosa.load(audio_path) 
-        mfccs = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=24)
+        y, sr = librosa.load(audio_path)
+        y = np.append(y[0], y[1:] - self.coefficient * y[:-1])
+        scale = max(y.max(), y.min())
+        y /= scale
+        mel = librosa.feature.melspectrogram(y=y, sr=sr, n_fft=self.fft_size, hop_length=self.hop_length, window=self.window, n_mels=self.n_mels)
+        mfccs = librosa.feature.mfcc(S=librosa.power_to_db(mel), n_mfcc=self.n_mfcc)
         return mfccs.T
 
     def dtw_distance(self, template, test):
@@ -39,10 +50,10 @@ class DTW():
                 test_file: the .wav file need to be DTW recognized
         '''
         import os
+        test_mfcc = self.extract_mfcc(test_file)
         for num in range(10):
             pattern_file = os.path.join(self.pattern_root, f'{num}_{self.default_pattern}.wav')
             pattern_mfcc = self.extract_mfcc(pattern_file)
-            test_mfcc = self.extract_mfcc(test_file)
             dis = self.dtw_distance(pattern_mfcc, test_mfcc)
             if num == 0:
                 predict = 0
@@ -54,6 +65,6 @@ class DTW():
         return predict
 
 if __name__ == '__main__':
-    classifier = DTW('RenAudio')
-    classifier('RenAudio/9_2.wav')
+    classifier = DTW('LiAudio')
+    classifier('RenAudio/5_9.wav')
 

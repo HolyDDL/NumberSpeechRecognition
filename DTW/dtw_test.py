@@ -1,5 +1,6 @@
 from DTW import DTW
 import numpy as np
+from tqdm import tqdm
 
 class Test_DTW():
 
@@ -14,13 +15,13 @@ class Test_DTW():
         import os
         classifier = DTW(self.Pattern_root, 1)
         pred_matrix = np.zeros((len(self.numbers), len(self.val_range)+1))
-        for real_num in self.numbers:
+        for real_num in tqdm(self.numbers, desc='All times'):
             pred_matrix[real_num][0] = real_num
-            for index in self.val_range:
+            for index in tqdm(self.val_range, desc=f'in number {real_num}', leave=False):
                 file = os.path.join(self.Val_set, f'{real_num}_{index}.wav')
                 pred = classifier(file)
                 pred_matrix[real_num][index] = pred
-                print(f'at number: {real_num}_{index}')
+                # print(f'at number: {real_num}_{index}') 
         return pred_matrix
     
     def save_matrix(self):
@@ -31,9 +32,9 @@ class Test_DTW():
             writer.writerows(data_matrix)
 
 if __name__ == '__main__':
-    tester = Test_DTW('RenAudio', 'LiAudio', 'test_result.csv')
+    tester = Test_DTW('LiAudio', 'LiAudio', 'test_result.csv')
     tester.save_matrix()
-    tester = Test_DTW('RenAudio', 'MaAudio', 'test_result.csv')
+    tester = Test_DTW('MaAudio', 'MaAudio', 'test_result.csv')
     tester.save_matrix()
     tester = Test_DTW('RenAudio', 'RenAudio', 'test_result.csv')
     tester.save_matrix()
