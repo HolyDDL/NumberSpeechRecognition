@@ -28,7 +28,7 @@ class DTW():
         self.hop_length = 256
         self.coefficient = 0.97
         self.window = 'boxcar'
-        self.n_mels = 128
+        self.n_mels = 20
         self.n_mfcc = 24
 
     def extract_mfcc(self, audio_path):
